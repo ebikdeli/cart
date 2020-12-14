@@ -3,7 +3,11 @@ from mainapp.models import Product, Profile
 from decimal import Decimal
 from django.core import validators
 
-
+"""
+This cart is unique for every user. After the user
+register the order, Cart model got empty for later
+use
+"""
 class Cart(models.Model):
     customer = models.OneToOneField(Profile,
                                     on_delete=models.CASCADE,
@@ -25,7 +29,11 @@ class Cart(models.Model):
             return 'This cart belongs to ' + self.customer.user.first_name + ' ' + self.customer.user.last_name
         return 'This cart belongs to ' + self.customer.user.username
 
-class CartItem(models.Model):  # It's a intermediary class
+"""
+CartItem handles every item we add to the cart.
+It holds item name, quantity and price.
+"""
+class CartItem(models.Model):
         QUANTITY_CHOICE = [(number, str(number)) for number in range(1, 21)]
         cart = models.ForeignKey(Cart,
                                  on_delete=models.CASCADE,
